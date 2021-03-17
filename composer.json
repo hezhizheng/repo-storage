@@ -1,0 +1,27 @@
+{
+    "name": "hzz/repo-storage",
+    "description": "使用代码托管平台(github|gitee)做自己‘私有’的文件存储库 | 图床",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~5.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "DexterHo(HeZhiZheng)",
+            "email": "dexter.ho.cn@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Hzz\\": "src/"
+        }
+    }
+}
