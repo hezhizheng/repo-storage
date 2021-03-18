@@ -26,7 +26,7 @@ $date["owner"] = "hezhizheng";
 $date["repo"] = "static-image-hosting";
 $date["path"] = "files";
 $date["file"] = "/xxxpath/1.png";
-$entity->put($date);
+$res = $entity->put($date); // 文件访问地址 github为 $res['content']['cdn_url']  gitee 为 $res['content']['download_url']
 
 // 删除
 $date["owner"] = "hezhizheng";
