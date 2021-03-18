@@ -3,7 +3,7 @@
 > [github 地址](https://github.com/hezhizheng/repo-storage)
 
 ## 功能
-- 支持gihub(jsdelivr加速)/gitee
+- 支持github(jsdelivr加速)/gitee
 - 已实现 上传 、删除、文件获取 接口
 
 ## 使用
