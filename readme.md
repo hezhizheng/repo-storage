@@ -5,7 +5,7 @@
 - 已实现 上传 、删除、文件获取 接口
 
 ## 使用
-- 依赖 guzzlehttp/guzzle
+- 安装 `composer require "hzz/repo-storage @dev"`
 ```php
 
 // gitee
