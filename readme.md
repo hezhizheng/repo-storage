@@ -1,4 +1,4 @@
-## repo-storage 使用代码托管平台(github|gitee)做自己‘私有’的对象存储
+## repo-storage 使用代码托管平台(github|gitee)做自己 '私有' 的 '对象存储'
 
 ## 功能
 - 支持gihub(jsdelivr加速)/gitee
