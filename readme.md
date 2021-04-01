@@ -13,6 +13,7 @@
 
 ```php
 
+// 使用简单工厂模式调用
 // gitee
 // $entity = \Hzz\StorageEntity::create('gitee',"对应gitee平台的token");
 $entity = \Hzz\StorageEntity::create('github',"对应github平台的token");
@@ -47,6 +48,9 @@ $date["repo"] = "static-image-hosting";
 $date["path"] = "files";
 $entity->get($date);
 
+// 使用策略模式调用
+$server = new \Hzz\StoreStrategy(new \Hzz\Github("对应github平台的token"));
+$server->serve->get($date); $server->serve->put($date); $server->serve->delete($date);
 ```
 详细用法可参考 tests 用例
 
