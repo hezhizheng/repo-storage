@@ -9,7 +9,7 @@
 
 class StorageTest extends \PHPUnit\Framework\TestCase
 {
-    const GITHUB_TOKEN = "271a6104370c50ec82d9b7c495ea9a24b9727550";
+    const GITHUB_TOKEN = "";
     const GITEE_TOKEN = "xxx";
 
     public function test_github_put()
