@@ -28,29 +28,29 @@ $_data = [
 ];
 
 // 上传
-$date["owner"] = "hezhizheng";
-$date["repo"] = "static-image-hosting";
-$date["path"] = "files";
-$date["file"] = "/xxxpath/1.png";
-$res = $entity->put($date); // 文件访问地址 github为 $res['content']['cdn_url']  gitee 为 $res['content']['download_url']
+$data["owner"] = "hezhizheng";
+$data["repo"] = "static-image-hosting";
+$data["path"] = "files";
+$data["file"] = "/xxxpath/1.png";
+$res = $entity->put($data); // 文件访问地址 github为 $res['content']['cdn_url']  gitee 为 $res['content']['download_url']
 
 // 删除
-$date["owner"] = "hezhizheng";
-$date["repo"] = "static-image-hosting";
-$date["path"] = "files";
-$date["file"] = "20210317170512_6051c64896104.png";
-$date["sha"] = "213231fd035a1ea05e5ccaba94cfa4d1acd6e81d";
-$entity->delete($date);
+$data["owner"] = "hezhizheng";
+$data["repo"] = "static-image-hosting";
+$data["path"] = "files";
+$data["file"] = "20210317170512_6051c64896104.png";
+$data["sha"] = "213231fd035a1ea05e5ccaba94cfa4d1acd6e81d";
+$entity->delete($data);
 
 // 获取文件
-$date["owner"] = "hezhizheng";
-$date["repo"] = "static-image-hosting";
-$date["path"] = "files";
-$entity->get($date);
+$data["owner"] = "hezhizheng";
+$data["repo"] = "static-image-hosting";
+$data["path"] = "files";
+$entity->get($data);
 
 // 使用策略模式调用
 $server = new \Hzz\StoreStrategy(new \Hzz\Github("对应github平台的token"));
-$server->serve->get($date); $server->serve->put($date); $server->serve->delete($date);
+$server->serve->get($data); $server->serve->put($data); $server->serve->delete($data);
 ```
 详细用法可参考 tests 用例
 
