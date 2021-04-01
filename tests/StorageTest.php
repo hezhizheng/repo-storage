@@ -9,9 +9,12 @@
 
 class StorageTest extends \PHPUnit\Framework\TestCase
 {
+    const GITHUB_TOKEN = "271a6104370c50ec82d9b7c495ea9a24b9727550";
+    const GITEE_TOKEN = "xxx";
+
     public function test_github_put()
     {
-        $x = \Hzz\StorageEntity::create('github',"xxxx");
+        $x = \Hzz\StorageEntity::create('github',self::GITHUB_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
@@ -23,7 +26,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
     public function test_github_delete()
     {
-        $x = \Hzz\StorageEntity::create('github',"xxxx");
+        $x = \Hzz\StorageEntity::create('github',self::GITHUB_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
@@ -37,7 +40,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
     public function test_github_get()
     {
-        $x = \Hzz\StorageEntity::create('github',"xxxx");
+        $x = \Hzz\StorageEntity::create('github',self::GITHUB_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
@@ -48,10 +51,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
     public function test_gitee_put()
     {
-        //die(2);
-
-        //var_dump(2);die();
-        $x = \Hzz\StorageEntity::create('gitee',"xxxx");
+        $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "pictest";
@@ -63,7 +63,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
     public function test_gitee_delete()
     {
-        $x = \Hzz\StorageEntity::create('gitee',"xxxx");
+        $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "pictest";
@@ -76,12 +76,25 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
     public function test_gitee_get()
     {
-        $x = \Hzz\StorageEntity::create('gitee',"xxxx");
+        $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "pictest";
         $putData["path"] = "files";
 
         var_dump(2,$x->get($putData));
+    }
+
+    public function test_Strategy()
+    {
+        $s = new \Hzz\Github(self::GITHUB_TOKEN);
+
+        $putData["owner"] = "hezhizheng";
+        $putData["repo"] = "static-image-hosting";
+        $putData["path"] = "files";
+
+        $x = new \Hzz\StoreStrategy($s);
+
+        var_dump(2,$x->serve->get($putData));
     }
 }

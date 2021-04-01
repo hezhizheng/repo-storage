@@ -97,6 +97,15 @@ class Github implements StorehouseInterface
 
         $response = json_decode($res->getBody()->getContents(), true);
 
+        // cdn 加速地址
+        if ( is_array($response) )
+        {
+            foreach ( $response as &$item )
+            {
+                $item["cdn_url"] = "https://cdn.jsdelivr.net/gh/" . $getData["owner"] . "/" . $getData["repo"] . "@master/" . $item["path"];
+            }
+        }
+
         return $response;
     }
 }

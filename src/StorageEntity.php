@@ -11,6 +11,8 @@ namespace Hzz;
 
 class StorageEntity
 {
+    private static $create = null;
+
     private static $entityMap = [
         'github' => 'Hzz\Github',
         'gitee' => 'Hzz\Gitee',
@@ -23,6 +25,10 @@ class StorageEntity
      */
     public static function create($platform, $token)
     {
-        return new self::$entityMap[$platform]($token);
+        if ( static::$create === null  )
+        {
+            static::$create = new self::$entityMap[$platform]($token);
+        }
+        return static::$create;
     }
 }
