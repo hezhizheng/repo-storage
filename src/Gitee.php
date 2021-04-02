@@ -26,11 +26,11 @@ class Gitee implements StorehouseInterface
     {
         $extension = pathinfo($putData["file"])["extension"] ?? '';
 
-        $fileName = date("YmdHis") . "_" . uniqid() . "." . $extension;
+        $fileName = $extension != "" ? date("YmdHis") . "_" . uniqid() . "." . $extension : date("YmdHis") . "_" . uniqid();
 
         $path = $putData["path"] . "/" . $fileName;
 
-        $file_base64 = base64_encode(file_get_contents($putData["file"]));
+        $file_base64 = file_exists($putData["file"]) ? base64_encode(file_get_contents($putData["file"])) : $putData["file"];
 
         $url = sprintf(self::REQUEST_URL, $putData["owner"], $putData["repo"], $path) . "?access_token=" . $this->token;
 
