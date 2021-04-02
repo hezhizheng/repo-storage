@@ -11,12 +11,31 @@ namespace Hzz;
 
 class StorageEntity
 {
-    private static $create = null;
+    private static $singleton = null;
 
     private static $entityMap = [
         'github' => 'Hzz\Github',
         'gitee' => 'Hzz\Gitee',
     ];
+
+    public static function singleton()
+    {
+        if ( self::$singleton === null )
+        {
+            self::$singleton = new self();
+        }
+        return self::$singleton;
+    }
+
+    /**
+     * @param $platform
+     * @param $token
+     * @return mixed|StorehouseInterface
+     */
+    public function implement($platform, $token)
+    {
+        return new self::$entityMap[$platform]($token);
+    }
 
     /**
      * @param $platform
@@ -25,10 +44,6 @@ class StorageEntity
      */
     public static function create($platform, $token)
     {
-        if ( static::$create === null  )
-        {
-            static::$create = new self::$entityMap[$platform]($token);
-        }
-        return static::$create;
+        return new self::$entityMap[$platform]($token);
     }
 }
