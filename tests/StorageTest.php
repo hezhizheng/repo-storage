@@ -98,4 +98,12 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 
         var_dump(2,$x->serve->get($putData));
     }
+
+    public function test_singleton()
+    {
+        $s1 = \Hzz\StorageEntity::singleton('gitee',self::GITEE_TOKEN);
+        $s2 = \Hzz\StorageEntity::singleton('gitee',self::GITEE_TOKEN);
+        var_dump($s1,$s2);
+        $this->assertEquals($s1,$s2);
+    }
 }

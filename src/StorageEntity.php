@@ -18,26 +18,26 @@ class StorageEntity
         'gitee' => 'Hzz\Gitee',
     ];
 
-    public static function singleton()
+    private function __construct()
+    {
+    }
+
+    /**
+     * 单例调用
+     * @param $platform
+     * @param $token
+     * @return mixed|null|StorehouseInterface
+     */
+    public static function singleton($platform, $token)
     {
         if ( self::$singleton === null )
         {
-            self::$singleton = new self();
+            self::$singleton = new self::$entityMap[$platform]($token);
         }
         return self::$singleton;
     }
 
-    /**
-     * @param $platform
-     * @param $token
-     * @return mixed|StorehouseInterface
-     */
-    public function implement($platform, $token)
-    {
-        return new self::$entityMap[$platform]($token);
-    }
-
-    /**
+    /** 简单工厂模式调用
      * @param $platform
      * @param $token
      * @return mixed|StorehouseInterface
