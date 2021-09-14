@@ -36,14 +36,18 @@ class Github implements StorehouseInterface
 
         $client = new Client();
 
+        $branch = $putData["branch"] ?? "master";
+
         $res = $client->put($url, [
             'headers' => [
                 'User-Agent' => 'PostmanRuntime/7.26.10',
                 'Accept' => 'application/vnd.github.v3+json',
+                'Authorization' => 'token '.$this->token,
             ],
             'json' => [
                 "message" => $putData["message"] ?? 'repo-storage upload',
                 "content" => $file_base64,
+                "branch" => $branch
             ],
             'verify' => false
         ]);
@@ -51,11 +55,11 @@ class Github implements StorehouseInterface
         $response = json_decode($res->getBody()->getContents(), true);
 
         if (!isset($response["content"]["path"])) {
-            throw new \Exception("github 上传失败");
+            throw new \Exception("github 上传失败：" .$res->getBody()->getContents());
         }
 
         // cdn 加速地址
-        $response["content"]["cdn_url"] = "https://cdn.jsdelivr.net/gh/" . $putData["owner"] . "/" . $putData["repo"] . "@master/" . $response["content"]["path"];
+        $response["content"]["cdn_url"] = "https://cdn.jsdelivr.net/gh/" . $putData["owner"] . "/" . $putData["repo"] . "@".$branch."/" . $response["content"]["path"];
 
         return $response;
     }
@@ -72,10 +76,12 @@ class Github implements StorehouseInterface
             'headers' => [
                 'User-Agent' => 'PostmanRuntime/7.26.10',
                 'Accept' => 'application/vnd.github.v3+json',
+                'Authorization' => 'token '.$this->token,
             ],
             'json' => [
                 "message" => $deleteData["message"] ?? 'repo-storage delete',
                 "sha" => $deleteData["sha"],
+                "branch" => $deleteData["branch"] ?? "master"
             ],
             'verify' => false
         ]);
@@ -87,11 +93,17 @@ class Github implements StorehouseInterface
 
     public function get(array $getData)
     {
-        $url = sprintf(self::REQUEST_URL, $getData["owner"], $getData["repo"], $getData["path"]) . "?access_token=" . $this->token;
+        $branch = $getData["branch"] ?? "master";
+        $url = sprintf(self::REQUEST_URL, $getData["owner"], $getData["repo"], $getData["path"]) . "?ref=" . $branch;
 
         $client = new Client();
 
         $res = $client->get($url,[
+            'headers' => [
+                'User-Agent' => 'PostmanRuntime/7.26.10',
+                'Accept' => 'application/vnd.github.v3+json',
+                'Authorization' => 'token '.$this->token,
+            ],
             'verify' => false
         ]);
 
@@ -102,7 +114,7 @@ class Github implements StorehouseInterface
         {
             foreach ( $response as &$item )
             {
-                $item["cdn_url"] = "https://cdn.jsdelivr.net/gh/" . $getData["owner"] . "/" . $getData["repo"] . "@master/" . $item["path"];
+                $item["cdn_url"] = "https://cdn.jsdelivr.net/gh/" . $getData["owner"] . "/" . $getData["repo"] . "@".$branch."/" . $item["path"];
             }
         }
 

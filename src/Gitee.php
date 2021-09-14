@@ -44,6 +44,7 @@ class Gitee implements StorehouseInterface
             'json' => [
                 "message" => $putData["message"] ?? 'repo-storage upload',
                 "content" => $file_base64,
+                "branch" => $putData["branch"] ?? "master"
             ],
             'verify' => false
         ]);
@@ -51,7 +52,7 @@ class Gitee implements StorehouseInterface
         $response = json_decode($res->getBody()->getContents(), true);
 
         if (!isset($response["content"]["path"])) {
-            throw new \Exception("gitee 上传失败");
+            throw new \Exception("gitee 上传失败：".$res->getBody()->getContents());
         }
 
         return $response;
@@ -73,6 +74,7 @@ class Gitee implements StorehouseInterface
             'json' => [
                 "message" => $deleteData["message"] ?? 'repo-storage delete',
                 "sha" => $deleteData["sha"],
+                "branch" => $deleteData["branch"] ?? "master"
             ],
             'verify' => false
         ]);
@@ -84,7 +86,8 @@ class Gitee implements StorehouseInterface
 
     public function get(array $getData)
     {
-        $url = sprintf(self::REQUEST_URL, $getData["owner"], $getData["repo"], $getData["path"]) . "?access_token=" . $this->token;
+        $branch = $getData["branch"] ?? "master";
+        $url = sprintf(self::REQUEST_URL, $getData["owner"], $getData["repo"], $getData["path"]) . "?access_token=" . $this->token."&ref=".$branch;
 
         $client = new Client();
 

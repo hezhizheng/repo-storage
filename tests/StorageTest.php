@@ -19,6 +19,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
         $putData["path"] = "files";
+        $putData["branch"] = "main";
 //        $putData["file"] = "D:\\phpstudy_pro\\WWW\\org\\repo-storage\\tests\\1.png";
         $putData["file"] = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAvklEQVRYhe2YsQmFQBBEvx/BUgx/ZmoRdmQ/FmEZZr8LUzPRE2bYFXGCeZncnj6WYT2uasbuo8T3bYESCzGq/2/dH9qhP64t0wx2FsXpjUWxXIcsxJATqkE2QxkHgE9cV+U6ZCGGnFCd3pnOOEauQxZiWIhhIYaFGKdJXQzf0LEBvAev+vgRRE4o8LfHkcpVXpHrkIUYckIo1A9dNmDkOmQhhpzQKdShCQuS60n9JBZi5C8b7iQXINchCzHkhDYkhSfPtbw45AAAAABJRU5ErkJggg==";
 
@@ -32,8 +33,9 @@ class StorageTest extends \PHPUnit\Framework\TestCase
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
         $putData["path"] = "files";
-        $putData["file"] = "20210317170512_6051c64896104.png";
-        $putData["sha"] = "213231fd035a1ea05e5ccaba94cfa4d1acd6e81d";
+        $putData["file"] = "20210914115301_61401c9d83a6d";
+        $putData["sha"] = "2df2c858c171174c83dd3be84ef09fb3b513cd58";
+        $putData["branch"] = "main";
 
         var_dump(2,$x->delete($putData));
     }
@@ -46,6 +48,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
         $putData["owner"] = "hezhizheng";
         $putData["repo"] = "static-image-hosting";
         $putData["path"] = "files";
+        $putData["branch"] = "main";
 
         var_dump(2,$x->get($putData));
     }
@@ -54,9 +57,9 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     {
         $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
-        $putData["owner"] = "hezhizheng";
-        $putData["repo"] = "pictest";
-        $putData["path"] = "files";
+        $putData["owner"] = "DexterHo";
+        $putData["repo"] = "static";
+        $putData["path"] = "image-hosting";
         $putData["file"] = "D:\\phpstudy_pro\\WWW\\org\\repo-storage\\tests\\1.png";
 
         var_dump(2,$x->put($putData));
@@ -66,10 +69,10 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     {
         $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
-        $putData["owner"] = "hezhizheng";
-        $putData["repo"] = "pictest";
-        $putData["path"] = "files";
-        $putData["file"] = "20210317170911_6051c7378bf8f.png";
+        $putData["owner"] = "DexterHo";
+        $putData["repo"] = "static";
+        $putData["path"] = "image-hosting";
+        $putData["file"] = "20210914142626_614040928e840.png";
         $putData["sha"] = "213231fd035a1ea05e5ccaba94cfa4d1acd6e81d";
 
         var_dump(2,$x->delete($putData));
@@ -79,9 +82,9 @@ class StorageTest extends \PHPUnit\Framework\TestCase
     {
         $x = \Hzz\StorageEntity::create('gitee',self::GITEE_TOKEN);
 
-        $putData["owner"] = "hezhizheng";
-        $putData["repo"] = "pictest";
-        $putData["path"] = "files";
+        $putData["owner"] = "DexterHo";
+        $putData["repo"] = "static";
+        $putData["path"] = "image-hosting";
 
         var_dump(2,$x->get($putData));
     }
