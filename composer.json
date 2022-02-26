@@ -3,10 +3,10 @@
     "description": "使用代码托管平台(github|gitee)做自己 '私有' 的 '对象存储' ",
     "type": "library",
     "require": {
-        "php": ">=7.0",
+        "php": "^7.2.5 || ^8.0",
         "ext-curl": "*",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "~6.0"
+        "guzzlehttp/guzzle": "^7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "~5.0"
