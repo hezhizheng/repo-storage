@@ -18,7 +18,7 @@
             "email": "dexter.ho.cn@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "dev-master",
     "autoload": {
         "psr-4": {
             "Hzz\\": "src/"
