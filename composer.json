@@ -1,6 +1,6 @@
 {
     "name": "hzz/repo-storage",
-    "description": "使用代码托管平台(github|gitee)做自己 '私有' 的 '对象存储' ",
+    "description": "使用代码托管平台(github|coding|gitee)做自己 '私有' 的 '对象存储' ",
     "type": "library",
     "require": {
         "php": "^7.2.5 || ^8.0",

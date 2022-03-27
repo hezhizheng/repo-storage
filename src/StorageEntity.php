@@ -16,6 +16,7 @@ class StorageEntity
     private static $entityMap = [
         'github' => 'Hzz\Github',
         'gitee' => 'Hzz\Gitee',
+        'coding' => 'Hzz\Coding',
     ];
 
     private function __construct()

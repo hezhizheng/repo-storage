@@ -1,9 +1,9 @@
-## repo-storage 使用代码托管平台(github|gitee)做自己 '私有' 的 '对象存储'
+## repo-storage 使用代码托管平台(github|coding|gitee)做自己 '私有' 的 '对象存储'
 
 > [github 地址](https://github.com/hezhizheng/repo-storage)
 
 ## 功能
-- 支持github(jsdelivr加速)/gitee
+- 支持github(jsdelivr加速)/coding/gitee
 - 已实现 上传 、删除、文件获取 接口
 
 ## 使用

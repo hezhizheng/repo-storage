@@ -11,6 +11,7 @@ class StorageTest extends \PHPUnit\Framework\TestCase
 {
     const GITHUB_TOKEN = "";
     const GITEE_TOKEN = "xxx";
+    const CODING_TOKEN = "";
 
     public function test_github_put()
     {
@@ -108,5 +109,23 @@ class StorageTest extends \PHPUnit\Framework\TestCase
         $s2 = \Hzz\StorageEntity::singleton('gitee',self::GITEE_TOKEN);
         var_dump($s1,$s2);
         $this->assertEquals($s1,$s2);
+    }
+
+    public function test_coding_put()
+    {
+        $x = \Hzz\StorageEntity::create('coding',self::CODING_TOKEN);
+
+        $putData["owner"] = "hzz333";
+        $putData["repo"] = "static-image-hosting";
+        $putData["path"] = "files";
+        $putData["branch"] = "master";
+        $putData["DepotId"] = 9464257;
+        $putData["project"] = "show-demo";
+//        $putData["file"] = "D:\\phpstudy_pro\\WWW\\org\\repo-storage\\tests\\1.png";
+        $putData["file"] = "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAIAAADYYG7QAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAAvklEQVRYhe2YsQmFQBBEvx/BUgx/ZmoRdmQ/FmEZZr8LUzPRE2bYFXGCeZncnj6WYT2uasbuo8T3bYESCzGq/2/dH9qhP64t0wx2FsXpjUWxXIcsxJATqkE2QxkHgE9cV+U6ZCGGnFCd3pnOOEauQxZiWIhhIYaFGKdJXQzf0LEBvAev+vgRRE4o8LfHkcpVXpHrkIUYckIo1A9dNmDkOmQhhpzQKdShCQuS60n9JBZi5C8b7iQXINchCzHkhDYkhSfPtbw45AAAAABJRU5ErkJggg==";
+
+        $res = $x->put($putData);
+
+        var_dump($res);
     }
 }
