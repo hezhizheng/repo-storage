@@ -10,7 +10,7 @@
 - 安装 `composer require "hzz/repo-storage @dev"`
 - github token 获取 -> https://github.com/settings/tokens/new
 - gitee token 获取 -> https://gitee.com/profile/personal_access_tokens/new
-
+- Coding 开放平台 -> https://help.coding.net/openapi
 ```php
 
 // 使用简单工厂模式调用
@@ -52,7 +52,7 @@ $entity->get($data);
 $server = new \Hzz\StoreStrategy(new \Hzz\Github("对应github平台的token"));
 $server->serve->get($data); $server->serve->put($data); $server->serve->delete($data);
 ```
-详细用法可参考 tests 用例
+详细用法可参考 [tests](./tests) 用例
 
 ## License
 [MIT](./LICENSE.txt)
