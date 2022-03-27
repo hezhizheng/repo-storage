@@ -3,7 +3,6 @@
 namespace Hzz;
 
 use GuzzleHttp\Client;
-use Hzz\org\FileCache;
 
 class Coding implements StorehouseInterface
 {
@@ -16,7 +15,7 @@ class Coding implements StorehouseInterface
         $this->token = $token;
     }
 
-    public function put(array $putData)
+    private function postFile($putData)
     {
         $extension = pathinfo($putData["file"])["extension"] ?? '';
 
@@ -81,6 +80,13 @@ class Coding implements StorehouseInterface
         return $data;
     }
 
+    public function put(array $putData)
+    {
+        return $this->pessimisticLock(time(),function () use($putData){
+            return $this->postFile($putData);
+        });
+    }
+
     public function delete(array $deleteData)
     {
         return [];
@@ -118,9 +124,8 @@ class Coding implements StorehouseInterface
 
     private function getUserId()
     {
-        $cache = new FileCache(['cache_dir' => __DIR__.'/cache']);
-
-        $cache_user_id = $cache->get($this->token);
+        $f = __DIR__."/".md5($this->token).".cache";
+        $cache_user_id = @file_get_contents($f);
 
         if ( !empty($cache_user_id) && $cache_user_id > 0 )
         {
@@ -149,7 +154,7 @@ class Coding implements StorehouseInterface
 
         if ( $userId > 0 )
         {
-            $cache->save($this->token,$userId,3155673600);
+            file_put_contents($f, $userId,FILE_APPEND|LOCK_EX);
         }
 
         return (int) $userId;
@@ -184,5 +189,28 @@ class Coding implements StorehouseInterface
         $sha = $response["Response"]["Commits"][0]["Sha"] ?? "";
 
         return $sha;
+    }
+
+    private function pessimisticLock(string $file_name, callable $func)
+    {
+        $file_name = __DIR__."/".$file_name;
+
+        $fp = fopen($file_name, "a+");
+
+        try {
+            if (flock($fp, LOCK_EX)) { // 强占锁 ，阻塞，执行完$function 才解锁
+                $func = $func();
+                flock($fp, LOCK_UN);
+            }
+            fclose($fp);
+            @unlink($file_name);
+        } catch (\Exception $exception) {
+            flock($fp, LOCK_UN);
+            fclose($fp);
+            @unlink($file_name);
+            throw new \Exception($exception->getMessage());
+        }
+
+        return $func;
     }
 }
