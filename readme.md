@@ -7,7 +7,7 @@
 - 已实现 上传 、删除、文件获取 接口
 
 ## 使用
-- 安装 `composer require "hzz/repo-storage @dev"`
+- 安装 `composer require "hzz/repo-storage @dev-master"`
 - github token 获取 -> https://github.com/settings/tokens/new
 - gitee token 获取 -> https://gitee.com/profile/personal_access_tokens/new
 - Coding 开放平台 -> https://help.coding.net/openapi
