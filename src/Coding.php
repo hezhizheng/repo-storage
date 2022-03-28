@@ -31,6 +31,9 @@ class Coding implements StorehouseInterface
 
         $branch = $putData["branch"] ?? "master";
 
+        $UserId = $this->getUserId();
+        $LastCommitSha = $this->getLastCommitSha($putData);
+
         $res = $client->post($url, [
             'headers' => [
                 'User-Agent' => 'PostmanRuntime/7.26.10',
@@ -40,8 +43,8 @@ class Coding implements StorehouseInterface
             'json' => [
                 "Action" => "CreateBinaryFiles",
                 "DepotId" => (int) $putData["DepotId"],
-                "UserId" => $this->getUserId(),
-                "LastCommitSha" => $this->getLastCommitSha($putData),
+                "UserId" => $UserId,
+                "LastCommitSha" => $LastCommitSha,
                 "Message" => $putData["message"] ?? 'repo-storage upload',
                 "SrcRef" => $branch,
                 "DestRef" => $branch,
@@ -59,7 +62,8 @@ class Coding implements StorehouseInterface
         $response = json_decode($res->getBody()->getContents(), true);
 
         if (isset($response["Response"]["Error"])) {
-            throw new \Exception("coding 上传失败：" .$res->getBody()->getContents());
+            $msg = json_encode(compact('response','res'));
+            throw new \Exception("coding 上传失败：" .$msg);
         }
 
 
@@ -204,7 +208,7 @@ class Coding implements StorehouseInterface
             }
             fclose($fp);
             @unlink($file_name);
-        } catch (\Exception $exception) {
+        } catch (\Throwable $exception) {
             flock($fp, LOCK_UN);
             fclose($fp);
             @unlink($file_name);
